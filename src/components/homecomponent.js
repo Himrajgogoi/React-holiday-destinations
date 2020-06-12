@@ -1,13 +1,39 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Card, CardBody, CardImg, CardTitle, CardHeader, CardText } from 'reactstrap';
 
-class Home extends Component {
-    render() {
+function RenderCard({ item }) {
+    return ( < Card >
+        <
+        CardHeader > < h4 > { item.title } < /h4></CardHeader >
+        <
+        CardImg src = { item.image }
+        alt = { item.name }
+        width = "500"
+        height = "500" / >
+        <
+        CardBody >
+        <
+        CardTitle > { item.name } < /CardTitle> <
+        CardText > { item.description } < /CardText> < /
+        CardBody > <
+        /Card>);
+    }
+
+    function Home(props) {
         return ( <
-            div className = "container" >
+            div classname = "container" >
             <
-            h3 > HOME < /h3> <
-            /div>
+            div className = "row" >
+            <
+            div className = "col-12 col-md-4 offset-md-4" >
+            <
+            RenderCard item = { props.city }
+            /> < /
+            div >
+
+            <
+            /div> < /
+            div >
         );
     }
-}
-export default Home;
+    export default Home;

@@ -20,17 +20,17 @@ class Main extends Component {
     }
 
     render() {
-        return ( <
-            div >
-            <
+        const HomePage = () => <
+            Home city = { this.state.cities.filter((city) => city.featured)[0] }
+        />
+        return ( < div > <
             Header / >
             <
             Switch >
             <
             Route path = "/home"
-            component = { Home } >
-            <
-            /Route> <
+            component = { HomePage }
+            /> <
             Route exact path = "/cities"
             component = {
                 () => <
@@ -38,12 +38,15 @@ class Main extends Component {
                 onClick = {
                     (cityid) => this.setselectedcity(cityid)
                 }
-                />}></Route >
+                />}/ >
                 <
-                Redirect to = "/home" > < /Redirect> < /
-                Switch > < /
-                div >
+                Redirect to = "/home" / > < /
+                Switch >
+                <
+                /div>
             );
+
+
         }
 
     }
