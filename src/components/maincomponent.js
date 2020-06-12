@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import Header from './headercomponent';
 import CityDetail from './citydetail';
 import Cities from './citiescomponent';
+import Home from './homecomponent';
 import { CITIES } from '../shared/cities';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 class Main extends Component {
 
@@ -23,17 +25,27 @@ class Main extends Component {
             <
             Header / >
             <
-            Cities cities = { this.state.cities }
-            onClick = {
-                (cityid) => this.setselectedcity(cityid)
-            }
-            /> <
-            CityDetail city = { this.state.cities.filter((city) => city.id === this.state.selectedcity)[0] }
-            / > < /
-            div >
-        );
+            Switch >
+            <
+            Route path = "/home"
+            component = { Home } >
+            <
+            /Route> <
+            Route exact path = "/cities"
+            component = {
+                () => <
+                Cities cities = { this.state.cities }
+                onClick = {
+                    (cityid) => this.setselectedcity(cityid)
+                }
+                />}></Route >
+                <
+                Redirect to = "/home" > < /Redirect> < /
+                Switch > < /
+                div >
+            );
+        }
+
     }
 
-}
-
-export default Main;
+    export default Main;
