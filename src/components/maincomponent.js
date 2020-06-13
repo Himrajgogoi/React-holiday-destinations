@@ -3,6 +3,8 @@ import Header from './headercomponent';
 import CityDetail from './citydetail';
 import Cities from './citiescomponent';
 import Home from './homecomponent';
+import Contactus from './contactcomponent';
+import Footer from './footercomponent';
 import { CITIES } from '../shared/cities';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
@@ -20,35 +22,50 @@ class Main extends Component {
     }
 
     render() {
-        const HomePage = () => <
-            Home city = { this.state.cities.filter((city) => city.featured)[0] }
-        />
-        return ( < div > <
-            Header / >
-            <
-            Switch >
-            <
-            Route path = "/home"
-            component = { HomePage }
-            /> <
-            Route exact path = "/cities"
-            component = {
-                () => <
-                Cities cities = { this.state.cities }
-                onClick = {
-                    (cityid) => this.setselectedcity(cityid)
+            const HomePage = () => {
+                return ( <
+                    Home city = { this.state.cities.filter((city) => city.featured)[0] }
+                    />);
                 }
-                />}/ >
-                <
-                Redirect to = "/home" / > < /
-                Switch >
-                <
-                /div>
-            );
 
 
-        }
+                const City = ({ match }) => <
+                    CityDetail city = { this.state.cities.filter((city) => city.id === parseInt(match.params.cityid, 10))[0] }
+                />
 
-    }
 
-    export default Main;
+                return ( < div > <
+                    Header / >
+                    <
+                    Switch >
+                    <
+                    Route path = "/home"
+                    component = { HomePage }
+                    /> <
+                    Route path = '/contactus'
+                    component = { Contactus }
+                    />    <
+                    Route exact path = "/cities"
+                    component = {
+                        () => <
+                        Cities cities = { this.state.cities }
+
+                        />}/ >
+                        <
+                        Route path = "/cities/:cityid"
+                        component = { City }
+                        /> <
+                        Redirect to = "/home" / > < /
+                        Switch >
+                        <
+                        Footer / >
+                        <
+                        /div>
+                    );
+
+
+                }
+
+            }
+
+            export default Main;

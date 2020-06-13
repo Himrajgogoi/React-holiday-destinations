@@ -9,22 +9,22 @@ class CityDetail extends Component {
 
     renderCity(city) {
         return ( <
-            div >
-            <
             Card >
             <
             CardImg src = { city.image }
             alt = { city.name }
-            /> <
+            width = "400"
+            height = "400" /
+            >
+            <
             CardBody >
             <
-            CardTitle > < h4 > { city.title } < /h4></CardTitle >
+            CardTitle > < h4 > { city.name } < /h4></CardTitle >
             <
             CardText > { city.snippet } < /CardText> < /
             CardBody >
             <
-            /Card> < /
-            div >
+            /Card>  
         );
     }
     renderDetail(city) {

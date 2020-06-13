@@ -58,15 +58,15 @@ class Header extends Component {
             NavLink className = "nav-link"
             to = "/contactus" > < span className = "fa fa-address-card fa-lg" > < /span> Contact us</NavLink >
             <
-            /NavItem> <
-            /Nav> < /
+            /NavItem> < /
+            Nav > < /
             Collapse > <
             /
             div > < /
             Navbar > <
             Jumbotron >
             <
-            div className = "container" >
+            div className = "container header" >
             <
             div className = "row" >
             <

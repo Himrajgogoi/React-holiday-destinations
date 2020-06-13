@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardText, CardTitle, CardImg, CardHeader } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 class Cities extends Component {
     constructor(props) {
@@ -12,19 +13,21 @@ class Cities extends Component {
             return ( <
                 div key = { city.id }
                 className = "col-12 col-md-5 m-1" >
+
                 <
-                Card onClick = {
-                    () => this.props.onClick(city.id)
-                } >
+                Link to = { `/cities/${city.id}` } >
                 <
-                CardHeader > < h3 > { city.name } < /h3></CardHeader >
+                Card >
                 <
+                CardHeader > < h3 > { city.name } < /h3> < /
+                CardHeader > <
                 CardImg src = { city.image }
                 width = "500"
                 height = "500"
-                alt = { city.name }
+                alt = { city.title }
                 /> < /
-                Card > < /
+                Card > <
+                /Link> < /
                 div >
             );
         });

@@ -2,7 +2,7 @@ export const CITIES = [{
         id: 0,
         name: 'New York',
         country: 'United States of America',
-        image: 'assets/images/new york.jpg',
+        image: '/assets/images/new york.jpg',
         title: 'The Big Apple',
         featured: true,
         snippet: 'The city of millions of dreams, the city that never sleeps. Come visit us and have a taste of the New York life.',
@@ -17,7 +17,7 @@ export const CITIES = [{
         featured: false,
         snippet: "At her Majesty's we believe in giving you an eccentric memory complete with all its palaces, museums and the rich history associated with them.",
         description: 'If you like rain and afternoon tea, London is your dream place to be. The home of the famous detective Sherlock Holmes, the headquarters of M16; this place can give you one of the best times of your life.The red colored double-decker bus, the Buckingham Palace, the London Bridge over Thames river all the memorable places you could imageine. Our 6 days/5 nights package is sure to give you a wonderful time in this city!',
-        image: 'assets/images/london.jpg'
+        image: '/assets/images/london.jpg'
     },
     {
         id: 2,
@@ -27,6 +27,6 @@ export const CITIES = [{
         featured: false,
         snippet: 'Having one of the highest happiness index, this city is full of laugh, joy and merriment. Be a part of its life and realize how wonderful the life can be.',
         description: 'From Amsterdam canals to world-famous Amsterdam museums and historical Amsterdam sights, it is one of the most romantic and beautiful cities in Europe. Canal cruises are a popular way to see the city from the perspective of its canals.Our 6 days/5 nights package will take you away from all your worrries as you sail thorugh the canals.',
-        image: 'assets/images/amsterdam.jpg'
+        image: '/assets/images/amsterdam.jpg'
     }
 ];
