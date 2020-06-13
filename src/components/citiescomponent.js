@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardBody, CardText, CardTitle, CardImg, CardHeader } from 'reactstrap';
+import { Card, CardBody, CardText, CardTitle, CardImg, CardHeader, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 class Cities extends Component {
@@ -35,6 +35,22 @@ class Cities extends Component {
         return ( <
             div className = "container" >
             <
+            div className = "row" >
+            <
+            Breadcrumb >
+            <
+            BreadcrumbItem >
+            <
+            Link to = '/home' > Home < /Link> < /
+            BreadcrumbItem >
+            <
+            BreadcrumbItem >
+            <
+            Link to = "/aboutus" > About us < /Link></BreadcrumbItem > <
+            BreadcrumbItem active > Packages <
+            /BreadcrumbItem> < /
+            Breadcrumb > <
+            /div> <
             div className = "row" > { cities } < /
             div > <
             /div>

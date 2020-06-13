@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Card, CardBody, CardText, CardTitle, CardImg, CardHeader } from 'reactstrap';
+import { Card, CardBody, CardText, CardTitle, CardImg, CardHeader, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 class CityDetail extends Component {
     constructor(props) {
@@ -40,6 +41,18 @@ class CityDetail extends Component {
             if (this.props.city != null) {
                 return ( < div className = "container" >
                     <
+                    div className = "row" >
+                    <
+                    Breadcrumb >
+                    <
+                    BreadcrumbItem >
+                    <
+                    Link to = '/cities' > Packages < /Link> < /
+                    BreadcrumbItem > <
+                    BreadcrumbItem active > City <
+                    /BreadcrumbItem> < /
+                    Breadcrumb > <
+                    /div> <
                     div className = "row" >
                     <
                     div className = "col-12 col-md-5 m-1" > { this.renderCity(this.props.city) } <

@@ -3,9 +3,11 @@ import Header from './headercomponent';
 import CityDetail from './citydetail';
 import Cities from './citiescomponent';
 import Home from './homecomponent';
+import Aboutus from './aboutuscomponent';
 import Contactus from './contactcomponent';
 import Footer from './footercomponent';
 import { CITIES } from '../shared/cities';
+import { LEADERS } from '../shared/leaders';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 class Main extends Component {
@@ -14,7 +16,8 @@ class Main extends Component {
         super(props);
         this.state = {
             cities: CITIES,
-            selectedcity: null
+            selectedcity: null,
+            leaders: LEADERS
         };
     }
     setselectedcity(cityid) {
@@ -26,13 +29,22 @@ class Main extends Component {
                 return ( <
                     Home city = { this.state.cities.filter((city) => city.featured)[0] }
                     />);
-                }
+                };
 
 
-                const City = ({ match }) => <
-                    CityDetail city = { this.state.cities.filter((city) => city.id === parseInt(match.params.cityid, 10))[0] }
-                />
+                const City = ({ match }) => {
+                    return ( <
+                        CityDetail city = { this.state.cities.filter((city) => city.id === parseInt(match.params.cityid, 10))[0] }
+                        />
+                    );
+                };
 
+                const About = () => {
+                    return ( <
+                        Aboutus leaders = { this.state.leaders }
+                        />
+                    );
+                };
 
                 return ( < div > <
                     Header / >
@@ -41,6 +53,9 @@ class Main extends Component {
                     <
                     Route path = "/home"
                     component = { HomePage }
+                    /> <
+                    Route path = "/aboutus"
+                    component = { About }
                     /> <
                     Route path = '/contactus'
                     component = { Contactus }
