@@ -6,19 +6,22 @@ import Home from './homecomponent';
 import Aboutus from './aboutuscomponent';
 import Contactus from './contactcomponent';
 import Footer from './footercomponent';
-import { CITIES } from '../shared/cities';
-import { LEADERS } from '../shared/leaders';
-import { Switch, Route, Redirect } from 'react-router-dom';
+
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+
+const mapStatetoProps = state => {
+    return {
+        cities: state.cities,
+        leaders: state.leaders
+    }
+}
 
 class Main extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            cities: CITIES,
-            selectedcity: null,
-            leaders: LEADERS
-        };
     }
     setselectedcity(cityid) {
         this.setState({ selectedcity: cityid });
@@ -27,21 +30,21 @@ class Main extends Component {
     render() {
             const HomePage = () => {
                 return ( <
-                    Home city = { this.state.cities.filter((city) => city.featured)[0] }
+                    Home city = { this.props.cities.filter((city) => city.featured)[0] }
                     />);
                 };
 
 
                 const City = ({ match }) => {
                     return ( <
-                        CityDetail city = { this.state.cities.filter((city) => city.id === parseInt(match.params.cityid, 10))[0] }
+                        CityDetail city = { this.props.cities.filter((city) => city.id === parseInt(match.params.cityid, 10))[0] }
                         />
                     );
                 };
 
                 const About = () => {
                     return ( <
-                        Aboutus leaders = { this.state.leaders }
+                        Aboutus leaders = { this.props.leaders }
                         />
                     );
                 };
@@ -63,7 +66,7 @@ class Main extends Component {
                     Route exact path = "/cities"
                     component = {
                         () => <
-                        Cities cities = { this.state.cities }
+                        Cities cities = { this.props.cities }
 
                         />}/ >
                         <
@@ -83,4 +86,4 @@ class Main extends Component {
 
             }
 
-            export default Main;
+            export default withRouter(connect(mapStatetoProps)(Main));
