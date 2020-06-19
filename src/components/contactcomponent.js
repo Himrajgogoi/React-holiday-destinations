@@ -1,74 +1,37 @@
 import React, { Component } from 'react';
-import { Breadcrumb, BreadcrumbItem, Button, Form, FormGroup, Label, Input, Col, FormFeedback } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Button, Label, Input, Col, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { LocalForm, Control, Errors } from 'react-redux-form';
+
+
+
+const required = (val) => val && val.length;
+const minlength = (len) => (val) => (val) && (val.length >= len);
+const maxlength = (len) => (val) => !(val) || (val.length <= len);
+
 
 class Contactus extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            firstname: '',
-            lastname: '',
-            telnum: '',
-            email: '',
-            agree: false,
-            contactType: 'Tel.',
-            touched: {
-                firstname: false,
-                lastname: false,
-                telnum: false,
-                email: false
-            }
-        };
+
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleBlur = this.handleBlur.bind(this);
+
+
 
     }
-    handleSubmit(event) {
-        console.log("Current State is:" + JSON.stringify(this.state));
-        alert("Current State is:" + JSON.stringify(this.state));
-        event.preventDefault();
+    handleSubmit(values) {
+        console.log("Current State is:" + JSON.stringify(values));
+        alert("Current State is:" + JSON.stringify(values));
+
     }
 
-    handleInputChange(event) {
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-        this.setState({
-            [name]: value
-        });
-    }
-    handleBlur = (field) => (evt) => {
-        this.setState({ touched: {...this.state.touched, [field]: true } });
-    }
-    Validate(firstname, lastname, telnum, email) {
-        const errors = {
-            firstname: '',
-            lastname: '',
-            telnum: '',
-            email: ''
 
 
-        };
 
-        if (this.state.firstname && firstname.length < 3)
-            errors.firstname = "First name should have atleast 3 characters";
-        else if (this.state.firstname && firstname.length > 10)
-            errors.firstname = "First name should have atmost 10 characters";
-        if (this.state.lastname && lastname.length < 3)
-            errors.lastname = "Last name should have atleast 3 characters";
-        else if (this.state.lastname && lastname.length > 10)
-            errors.lastname = "Last name should have atmost 10 characters";
-        const reg = /^\d+$/;
-        if (this.state.telnum && !reg.test(telnum))
-            errors.telnum = "Telephone number should have only numbers";
-        if (this.state.email && email.split('').filter(x => x === '@').length != 1)
-            errors.email = "Write a valid email";
 
-        return errors;
-    }
+
     render() {
-        const errors = this.Validate(this.state.firstname, this.state.lastname, this.state.telnum, this.state.email);
+
         return ( <
             div className = "container" >
             <
@@ -142,9 +105,11 @@ class Contactus extends Component {
             div className = "col-12 col-md-10" >
             <
             h3 > Sign up! < /h3> <
-            Form onSubmit = { this.handleSubmit } >
+            LocalForm onSubmit = {
+                (values) => this.handleSubmit(values)
+            } >
             <
-            FormGroup row >
+            Row className = "form-group" >
             <
             Label htmlFor = "firstname"
             md = { 2 } > First Name < /Label> <
@@ -152,19 +117,27 @@ class Contactus extends Component {
                 10
             } >
             <
-            Input type = "text"
+            Control.text model = ".firstname"
             id = "firstname"
             name = "firstname"
-            value = { this.state.firstname }
-            valid = { errors.firstname === '' }
-            invalid = { errors.firstname !== '' }
-            placeholder = "firstname"
-            onChange = { this.handleInputChange }
-            onBlur = { this.handleBlur('firstname') }
-            / ><FormFeedback>{errors.firstname}</FormFeedback > < /
+            className = "form-control"
+            validators = {
+                {
+                    required,
+                    minlength: minlength(3),
+                    maxlength: maxlength(15)
+                }
+            }
+            /> <
+            Errors className = "text-danger"
+            model = ".firstname"
+            show = "touched"
+            messages = {
+                { required: 'Required', minlength: " must have atleast 3 characters", maxlength: " must have less than 15 characters" }
+            } > < /Errors> < /
             Col > < /
-            FormGroup > <
-            FormGroup row >
+            Row > <
+            Row className = "form-group" >
             <
             Label htmlFor = "lastname"
             md = { 2 } > Last Name < /Label> <
@@ -172,19 +145,27 @@ class Contactus extends Component {
                 10
             } >
             <
-            Input type = "text"
+            Control.text model = ".lastname"
             id = "lastname"
             name = "lastname"
-            value = { this.state.lastname }
-            valid = { errors.lastname === '' }
-            invalid = { errors.lastname !== '' }
-            placeholder = "lastname"
-            onChange = { this.handleInputChange }
-            onBlur = { this.handleBlur('lastname') }
-            / ><FormFeedback>{errors.lastname}</FormFeedback > < /
+            className = "form-control"
+            validators = {
+                {
+                    required,
+                    minlength: minlength(3),
+                    maxlength: maxlength(15)
+                }
+            }
+            /> <
+            Errors className = "text-danger"
+            model = ".lastname"
+            show = "touched"
+            messages = {
+                { required: 'Required', minlength: " must have atleast 3 characters", maxlength: " must have less than 15 characters" }
+            } > < /Errors> < /
             Col > < /
-            FormGroup > <
-            FormGroup row >
+            Row > <
+            Row className = "form-group" >
             <
             Label htmlFor = "telnum"
             md = { 2 } > Telephone number < /Label> <
@@ -192,19 +173,27 @@ class Contactus extends Component {
                 10
             } >
             <
-            Input type = "tel"
+            Control.text model = ".telnum"
             id = "telnum"
             name = "telnum"
-            value = { this.state.telnum }
-            valid = { errors.telnum === '' }
-            invalid = { errors.telnum !== '' }
-            placeholder = "telephone number"
-            onChange = { this.handleInputChange }
-            onBlur = { this.handleBlur('telnum') }
-            / ><FormFeedback>{errors.telnum}</FormFeedback > < /
+            className = "form-control"
+            validators = {
+                {
+                    required,
+                    minlength: minlength(3),
+                    maxlength: maxlength(15)
+                }
+            }
+            / > <
+            Errors className = "text-danger"
+            model = ".telnum"
+            show = "touched"
+            messages = {
+                { required: 'Required', minlength: " must have atleast 3 characters", maxlength: " must have less than 15 characters" }
+            } > < /Errors> < /
             Col > < /
-            FormGroup > <
-            FormGroup row >
+            Row > <
+            Row className = "form-group" >
             <
             Label htmlFor = "email"
             md = { 2 } > Email ID < /Label> <
@@ -212,19 +201,27 @@ class Contactus extends Component {
                 10
             } >
             <
-            Input type = "email"
+            Control.text model = ".email"
             id = "email"
             name = "email"
-            value = { this.state.email }
-            valid = { errors.email === '' }
-            invalid = { errors.email !== '' }
-            placeholder = "emailID"
-            onChange = { this.handleInputChange }
-            onBlur = { this.handleBlur('email') }
-            / > <FormFeedback>{errors.email}</FormFeedback > < /
+            className = "form-control"
+            validators = {
+                {
+                    required,
+                    minlength: minlength(3),
+
+                }
+            }
+            / > <
+            Errors className = "text-danger"
+            model = ".email"
+            show = "touched"
+            messages = {
+                { required: 'Required', minlength: " must have atleast 3 characters" }
+            } > < /Errors> < /
             Col > < /
-            FormGroup > <
-            FormGroup row >
+            Row > <
+            Row className = "form-group" >
             <
             Col md = {
                 { size: 5, offset: 2 }
@@ -232,11 +229,11 @@ class Contactus extends Component {
             <
             Label check >
             <
-            Input type = "checkbox"
+            Control.checkbox model = ".agree"
             name = "agree"
-            checked = { this.state.agree }
-            onChange = { this.handleInputChange }
-            /> <
+            className = "form-control" /
+            >
+            <
             strong > May we contact you ? < /strong>  < /
             Label > < /
             Col > <
@@ -244,18 +241,18 @@ class Contactus extends Component {
                 { size: 5 }
             } >
             <
-            Input type = "select"
+            Control.select model = ".contactType"
             name = "contactType"
-            value = { this.state.contactType }
-            onChange = { this.handleInputChange } >
+            className = "form-control" >
+
             <
             option > Tel no. < /option> <
             option > Email ID < /option> < /
-            Input > <
+            Control.select > <
             /Col> < /
-            FormGroup >
+            Row >
             <
-            FormGroup row >
+            Row className = "form-group" >
             <
             Col md = {
                 { size: 4, offset: 2 }
@@ -266,8 +263,8 @@ class Contactus extends Component {
             Sign up <
             /Button> < /
             Col > <
-            /FormGroup> < /
-            Form > < /
+            /Row> < /
+            LocalForm > < /
             div > <
             /div> < /
             div >
