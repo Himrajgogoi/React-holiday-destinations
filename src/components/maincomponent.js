@@ -9,14 +9,19 @@ import Footer from './footercomponent';
 
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { AddFeedback } from '../redux/ActionCreators';
 
 
 const mapStatetoProps = state => {
     return {
         cities: state.cities,
-        leaders: state.leaders
+        leaders: state.leaders,
+        comments: state.comments
     }
-}
+};
+const mapDispatchToProps = dispatch => ({
+    AddFeedback: (name, description) => dispatch(AddFeedback(name, description))
+});
 
 class Main extends Component {
 
@@ -37,7 +42,12 @@ class Main extends Component {
 
                 const City = ({ match }) => {
                     return ( <
-                        CityDetail city = { this.props.cities.filter((city) => city.id === parseInt(match.params.cityid, 10))[0] }
+                        CityDetail city = {
+                            this.props.cities.filter((city) => city.id === parseInt(match.params.cityid, 10))[0]
+                        }
+                        comments = { this.props.comments }
+                        AddFeedback = { this.props.AddFeedback }
+
                         />
                     );
                 };
@@ -86,4 +96,4 @@ class Main extends Component {
 
             }
 
-            export default withRouter(connect(mapStatetoProps)(Main));
+            export default withRouter(connect(mapStatetoProps, mapDispatchToProps)(Main));
