@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Card, CardBody, CardText, CardTitle, CardImg, CardHeader, Breadcrumb, BreadcrumbItem, Modal, ModalHeader, ModalBody, Row, Col, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { LocalForm, Control, Errors } from 'react-redux-form';
+import { Loading } from './loadingcomponent';
+
 
 const required = (val) => val && val.length;
 const minlength = (len) => (val) => (val) && (val.length >= len);
@@ -167,34 +169,52 @@ class CityDetail extends Component {
         );
     }
     render() {
-            if (this.props.city != null) {
-                return ( < div className = "container" >
-                    <
-                    div className = "row" >
-                    <
-                    Breadcrumb >
-                    <
-                    BreadcrumbItem >
-                    <
-                    Link to = '/cities' > Packages < /Link> < /
-                    BreadcrumbItem > <
-                    BreadcrumbItem active > City <
-                    /BreadcrumbItem> < /
-                    Breadcrumb > <
-                    /div> <
-                    div className = "row" >
-                    <
-                    div className = "col-12 col-md-5 m-1" > { this.renderCity(this.props.city) } <
-                    /div> <
-                    div className = "col-12 col-md-5 m-1" > { this.renderDetail(this.props.comments, this.props.AddFeedback) } <
-                    /div>< /
-                    div > <
-                    /div>);
-                }
-                else {
-                    return ( < div > < /div>);
-                    }
+        if (this.props.isLoading) {
 
-                }
+            return ( <
+                div className = "container" >
+                <
+                div className = "row" >
+                <
+                Loading / >
+                <
+                /div> < /
+                div >
+            );
+        } else if (this.props.errMess) {
+            return ( <
+                div className = "container" >
+                <
+                div className = "row" > { this.props.errMess } <
+                /div> < /
+                div >
+            );
+        } else {
+            return ( < div className = "container" >
+                <
+                div className = "row" >
+                <
+                Breadcrumb >
+                <
+                BreadcrumbItem >
+                <
+                Link to = '/cities' > Packages < /Link> < /
+                BreadcrumbItem > <
+                BreadcrumbItem active > City <
+                /BreadcrumbItem> < /
+                Breadcrumb > <
+                /div> <
+                div className = "row" >
+                <
+                div className = "col-12 col-md-5 m-1" > { this.renderCity(this.props.city) } <
+                /div> <
+                div className = "col-12 col-md-5 m-1" > { this.renderDetail(this.props.comments, this.props.AddFeedback) } <
+                /div>< /
+                div > <
+                /div>);
             }
-            export default CityDetail;
+
+
+        }
+    }
+    export default CityDetail;

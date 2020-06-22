@@ -9,7 +9,7 @@ import Footer from './footercomponent';
 
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { AddFeedback } from '../redux/ActionCreators';
+import { AddFeedback, fetchCities } from '../redux/ActionCreators';
 
 
 const mapStatetoProps = state => {
@@ -20,7 +20,8 @@ const mapStatetoProps = state => {
     }
 };
 const mapDispatchToProps = dispatch => ({
-    AddFeedback: (name, description) => dispatch(AddFeedback(name, description))
+    AddFeedback: (name, description) => dispatch(AddFeedback(name, description)),
+    fetchCities: () => { dispatch(fetchCities()) }
 });
 
 class Main extends Component {
@@ -32,10 +33,16 @@ class Main extends Component {
         this.setState({ selectedcity: cityid });
     }
 
+    componentDidMount() {
+        this.props.fetchCities();
+    }
+
     render() {
             const HomePage = () => {
                 return ( <
-                    Home city = { this.props.cities.filter((city) => city.featured)[0] }
+                    Home city = { this.props.cities.cities.filter((city) => city.featured)[0] }
+                    dishesLoading = { this.props.cities.isLoading }
+                    errMess = { this.props.cities.errMess }
                     />);
                 };
 
@@ -43,8 +50,10 @@ class Main extends Component {
                 const City = ({ match }) => {
                     return ( <
                         CityDetail city = {
-                            this.props.cities.filter((city) => city.id === parseInt(match.params.cityid, 10))[0]
+                            this.props.cities.cities.filter((city) => city.id === parseInt(match.params.cityid, 10))[0]
                         }
+                        isLoading = { this.props.cities.isLoading }
+                        errMess = { this.props.cities.errMess }
                         comments = { this.props.comments }
                         AddFeedback = { this.props.AddFeedback }
 
